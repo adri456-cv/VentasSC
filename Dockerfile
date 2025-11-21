@@ -1,43 +1,22 @@
-# Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
-
-# Esta fase se usa cuando se ejecuta desde VS en modo rápido (valor predeterminado para la configuración de depuración)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-
 # Esta fase se usa para compilar el proyecto de servicio
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# LÍNEA CLAVE: Asegúrate que la ruta de origen 'Ventas/Ventas.csproj' (la ruta en tu disco) sea 100% correcta y respete mayúsculas/minúsculas.
-COPY ["Ventas/Ventas.csproj", "Ventas/"]
+# 1. Copia el archivo .csproj (Ya que el Dockerfile está en la misma carpeta que el .csproj)
+# Copia el archivo Ventas.csproj a la raíz de /src en el contenedor
+COPY ["Ventas.csproj", "."]
 
-# Establecemos el directorio de trabajo en la carpeta del proyecto
-WORKDIR "/src/Ventas" 
+# 2. Restaura las dependencias
+RUN dotnet restore "Ventas.csproj"
 
-# Ahora el restore solo necesita el nombre del archivo
-RUN dotnet restore "Ventas.csproj" 
-
-# Volvemos a la raíz para copiar todo el código fuente.
-WORKDIR /src 
+# 3. Copia el resto de los archivos fuente
 COPY . .
 
-# Volvemos al directorio del proyecto para la compilación
-WORKDIR "/src/Ventas"
+# 4. Compila el proyecto (el WORKDIR ya es /src)
 RUN dotnet build "Ventas.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-# El WORKDIR sigue siendo /src/Ventas, simplificamos la ruta
 RUN dotnet publish "Ventas.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-# Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ventas.dll"]
