@@ -51,6 +51,10 @@ using(var scope = app.Services.CreateScope())
 //app.UseSwagger();
 //app.UseSwaggerUI();
 //}
+// Habilitar la generación del documento Swagger
+app.UseSwagger();//
+// Habilitar la interfaz web interactiva (Swagger UI)
+app.UseSwaggerUI();//
 
 app.UseHttpsRedirection();
 
