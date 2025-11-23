@@ -40,12 +40,21 @@ namespace Ventas.Infraestructura.Repositorio
         {
             var lista = await (
                 from r in _context.Ruta
+
                 join p in _context.Pedido
-                    on r.CodigoPedido equals p.Codigo
+                    on r.CodigoPedido equals p.Codigo into pedidos
+                from p in pedidos.DefaultIfEmpty()   // <-- mantiene rutas aunque no haya pedido
+
                 join c in _context.Cliente
-                    on p.CodigoCliente equals c.Codigo
-                where p.CodigoCliente == r.CodigoCliente
-                orderby Convert.ToInt32(r.Orden)   
+                    on p.CodigoCliente equals c.Codigo into clientes
+                from c in clientes.DefaultIfEmpty()  // <-- mantiene rutas aunque no haya cliente
+
+                where p != null
+                      && c != null
+                      && p.CodigoCliente == r.CodigoCliente    // tu validación
+
+                orderby Convert.ToInt32(r.Orden)
+
                 select new ListaRutaDTO
                 {
                     Dia = r.Dia,
@@ -57,6 +66,7 @@ namespace Ventas.Infraestructura.Repositorio
 
             return lista;
         }
+
 
 
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)
