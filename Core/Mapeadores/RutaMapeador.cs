@@ -26,7 +26,9 @@ namespace Ventas.Core.Mapeadores
                 CodigoEmpleado = ruta.CodigoEmpleado,
                 Dia = ruta.Dia,
                 Orden = ruta.Orden,
+                FechaCreacion = DateOnly.FromDateTime(DateTime.UtcNow), // Usar UTC para consistencia
                 Estado = "Activo"
+                
             };
         }
     }

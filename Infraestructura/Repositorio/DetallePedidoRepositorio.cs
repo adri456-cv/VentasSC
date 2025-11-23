@@ -76,7 +76,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<ProductoCantidadDTO> ProductosTotales(string codigo)
         {
             var sumaProductos = await (from dp in _context.DetallePedido
-                                       where dp.CodigoPedido == codigo && dp.Estado == "Activo"
+                                       where dp.CodigoProducto == codigo && dp.Estado == "Activo"
                                        select dp.Cantidad).SumAsync();
             var resultado = new ProductoCantidadDTO
             {
