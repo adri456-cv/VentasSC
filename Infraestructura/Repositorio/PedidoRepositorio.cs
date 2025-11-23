@@ -21,6 +21,18 @@ namespace Ventas.Infraestructura.Repositorio
                           select u).Select(us=>us.toPedidoDTO()).ToListAsync();
 
         }
+        public async Task<List<PedidoDTO>> GetEnProceso()
+        {
+            return await (from u in _context.Pedido
+                          where u.EstadoPedido == "En Proceso"
+                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
+        }
+        public async Task<List<PedidoDTO>> GetCancelados()
+        {
+            return await (from u in _context.Pedido
+                          where u.EstadoPedido == "Cancelado"
+                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
+        }
         public async Task<PedidoDTO> GetPedido(string codigo)
         {
             var pedido = await (from u in _context.Pedido

@@ -5,6 +5,8 @@ namespace Ventas.Core.Interfaces
     public interface IPedidoRepositorio
     {
         Task<List<PedidoDTO>> GetPedido();
+        Task<List<PedidoDTO>> GetEnProceso();
+        Task<List<PedidoDTO>> GetCancelados();
         Task<PedidoDTO> GetPedido(string codigo);
         Task<Pedido> ActualizarEstado(string codigo, string estadoNuevo);
         Task<Pedido> AgregarPedido(Pedido nuevoPedido);

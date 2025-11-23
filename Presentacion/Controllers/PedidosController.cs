@@ -26,7 +26,7 @@ namespace Ventas.Presentacion.Controllers
 
         // 2. GET: api/Pedidos
         //Permite visualizar todos los pedidos registrados en el sistema.
-        [HttpGet("Tarea3ListarPedidosEntregados")]
+        [HttpGet("ListarPedidosEntregados")]
         public async Task<IActionResult> GetPedido()
         {
             List<PedidoDTO> pedido = await context.GetPedido();
@@ -36,6 +36,26 @@ namespace Ventas.Presentacion.Controllers
             }
             return Ok(pedido);
 
+        }
+        [HttpGet("ListarPedidosEnProceso")]
+        public async Task<IActionResult> GetPedidosEnProceso()
+        {
+            List<PedidoDTO> pedido = await context.GetEnProceso();
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+            return Ok(pedido);
+        }
+        [HttpGet("ListarPedidosCancelados")]
+        public async Task<IActionResult> GetPedidosCancelados()
+        {
+            List<PedidoDTO> pedido = await context.GetCancelados();
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+            return Ok(pedido);
         }
 
         // 3. GET: api/Pedidos/5

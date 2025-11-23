@@ -9,5 +9,6 @@ namespace Ventas.Core.Interfaces
         Task<Cliente> AgregarCliente(Cliente nuevoCliente);
         Task<ClienteDTO> ActualizarCliente(string ci, ClienteDTO clienteActualizado);
         Task<Cliente> EliminarCliente(string ci);
+
     }
 }
