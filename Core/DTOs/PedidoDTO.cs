@@ -7,6 +7,6 @@
         public string CodigoEmpleado { get; set; }
         public string CodigoSucursal { get; set; }
         public DateTime FechaPedido { get; set; } = DateTime.UtcNow;
-        public double MontoTotalPedido { get; set; }
+        
     }
 }

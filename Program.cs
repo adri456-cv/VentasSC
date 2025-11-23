@@ -5,7 +5,7 @@ using Ventas.Infraestructura.Data;
 using Ventas.Infraestructura.Repositorio;
 
 var url = Environment.GetEnvironmentVariable("DATABASE");
-Console.WriteLine("la conexion es: "+ url);
+Console.WriteLine("la conexion es: " +url);
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Ventas.Infraestructura.Data.VentasContext>(options =>

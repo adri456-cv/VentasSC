@@ -36,6 +36,27 @@ namespace Ventas.Infraestructura.Repositorio
                 return encontrado.toRutaDTO();
             }
         }
+        public async Task<List<ListaRutaDTO>> GetRutasPorDia()
+        {
+            var lista = await (
+                from r in _context.Ruta
+                join p in _context.Pedido
+                    on r.CodigoPedido equals p.Codigo
+                join c in _context.Cliente
+                    on p.CodigoCliente equals c.Codigo
+                where p.CodigoCliente == r.CodigoCliente   
+                select new ListaRutaDTO
+                {
+                    Dia = r.Dia,
+                    CodigoPedido = r.CodigoPedido,
+                    Direccion = c.Direccion,
+                    Orden = r.Orden
+                }
+            ).ToListAsync();
+
+            return lista;
+        }
+
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)
         {
             _context.Ruta.Add(nuevaRuta);

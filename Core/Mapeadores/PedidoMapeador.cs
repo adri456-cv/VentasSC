@@ -13,7 +13,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoEmpleado = pedido.CodigoEmpleado,
                 CodigoSucursal = pedido.CodigoSucursal,
                 FechaPedido = pedido.FechaPedido,
-                MontoTotalPedido = pedido.MontoTotalPedido
+                
             };
         }
         public static Pedido toPedido(this PedidoDTO dto)
@@ -25,7 +25,6 @@ namespace Ventas.Core.Mapeadores
                 CodigoEmpleado = dto.CodigoEmpleado,
                 CodigoSucursal= dto.CodigoSucursal,
                 FechaPedido = dto.FechaPedido,
-                MontoTotalPedido = dto.MontoTotalPedido,
                 EstadoPedido = "En Proceso"
 
             };

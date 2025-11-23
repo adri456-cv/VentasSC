@@ -70,5 +70,6 @@ namespace Ventas.Infraestructura.Repositorio
             }
 
         }
+        
     }
 }

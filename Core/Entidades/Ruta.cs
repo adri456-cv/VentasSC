@@ -6,11 +6,13 @@ namespace Ventas.Core.Entidades
     {
         [Key]
         public int IdRuta { get; set; }
-        public string CodigoRuta { get; set; }
+        public string CodigoRuta { get; set; }//se repite para toda la ruta 
         public string CodigoCliente { get; set; }
-        public string CodigoEmpleado { get; set; }
+        public string CodigoEmpleado { get; set; }//borrar 
+        public string CodigoPedido { get; set; }
         public string Dia {  get; set; }
-        public string Orden { get; set; }//sera un numero, referenciando el orden de la ruta
+        public DateOnly FechaCreacion { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public string Orden { get; set; }//sera un numero, referenciando el orden.
         public string Estado { get; set; } = "Activo";//Cancelado
 
     }

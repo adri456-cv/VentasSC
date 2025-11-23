@@ -6,6 +6,6 @@
         public string CodigoPedido { get; set; }
         public string CodigoProducto { get; set; }
         public int Cantidad { get; set; }
-        public double PrecioUnitarioVenta { get; set; }//creo que no debe estar
+        public double PrecioUnitarioVenta { get; set; }
     }
 }

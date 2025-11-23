@@ -9,5 +9,6 @@ namespace Ventas.Core.Interfaces
         Task<DetallePedido> ActualizarEstado(string codigo, string estadoNuevo);
         Task<DetallePedido> AgregarDetalle(DetallePedido nuevoDetalle);
         Task<DetallePedido> EliminarDetalle(string codigo);
+        Task<ProductoCantidadDTO> ProductosTotales(string codigo);
     }
 }

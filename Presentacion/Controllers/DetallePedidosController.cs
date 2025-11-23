@@ -23,35 +23,7 @@ namespace Ventas.Presentacion.Controllers
         {
             this.context = context;
         }
-        /*
-        [HttpGet("productos-menos-vendidos")]
-        public IActionResult GetProductosMenosVendidos()
-        {
-            var productos = new[]
-            {
-                new { Id = 10, Nombre = "Mouse inalámbrico", CantidadVendida = 3 },
-                new { Id = 11, Nombre = "Teclado ergonómico", CantidadVendida = 2 },
-                new { Id = 12, Nombre = "Webcam 720p", CantidadVendida = 1 }
-            };
-
-            return Ok(productos);
-        }
-
-        // Clientes frecuentes
-        [HttpGet("clientes-frecuentes")]
-        public IActionResult GetClientesFrecuentes()
-        {
-            var clientes = new[]
-            {
-                new { Id = 1, Nombre = "Carlos Pérez", ComprasTotales = 15, MontoTotal = 2500.50 },
-                new { Id = 2, Nombre = "Ana Gómez", ComprasTotales = 12, MontoTotal = 1800.00 },
-                new { Id = 3, Nombre = "Luis Rojas", ComprasTotales = 10, MontoTotal = 1450.75 }
-            };
-
-            return Ok(clientes);
-        }
-        */
-
+        
 
         
         // GET: api/DetallePedidos
@@ -82,7 +54,18 @@ namespace Ventas.Presentacion.Controllers
 
             
         }
-        
+
+        [HttpGet("ProductoCantidad/{codigo}")]
+        public async Task<IActionResult> GetProductoCantidad(string codigo)
+        {
+            var productoCantidad = await context.ProductosTotales(codigo);
+            if (productoCantidad == null)
+            {
+                return NotFound();
+            }
+            return Ok(productoCantidad);
+        }
+
         // PUT: api/DetallePedidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{codigo}")]

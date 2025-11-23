@@ -75,7 +75,7 @@ namespace Ventas.Presentacion.Controllers
         public async Task<IActionResult> PostPedido(string codigo, string codigoCliente, string codigoEmpleado, string codigoSucursal, int monto )
         {
             
-            PedidoDTO pedidoDTO = new PedidoDTO() { Codigo=codigo, CodigoCliente=codigoCliente,CodigoEmpleado=codigoEmpleado, CodigoSucursal=codigoSucursal, MontoTotalPedido=monto};
+            PedidoDTO pedidoDTO = new PedidoDTO() { Codigo=codigo, CodigoCliente=codigoCliente,CodigoEmpleado=codigoEmpleado, CodigoSucursal=codigoSucursal};
             Pedido pedido = pedidoDTO.toPedido();
             var nuevoPedido = await context.AgregarPedido(pedido);
 

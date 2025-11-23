@@ -11,7 +11,6 @@ namespace Ventas.Core.Entidades
         public string CodigoEmpleado { get; set; }
         public string CodigoSucursal { get; set; }
         public DateTime FechaPedido { get; set; } = DateTime.UtcNow;
-        public double MontoTotalPedido { get; set; }
         public string EstadoPedido { get; set; } = "En Proceso"; //en proceso, entregado y cancelado
     }
 }
