@@ -103,7 +103,7 @@ namespace Ventas.Presentacion.Controllers
         // esten dados de alta en el sistema.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Tarea3AgregarPedido")]
-        public async Task<IActionResult> PostPedido(string codigo, string codigoCliente, string codigoEmpleado, string codigoSucursal, int monto )
+        public async Task<IActionResult> PostPedido(string codigo, string codigoCliente, string codigoEmpleado )
         {
             
             PedidoDTO pedidoDTO = new PedidoDTO() { Codigo=codigo, CodigoCliente=codigoCliente,CodigoEmpleado=codigoEmpleado};

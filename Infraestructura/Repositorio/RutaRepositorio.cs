@@ -60,6 +60,7 @@ namespace Ventas.Infraestructura.Repositorio
                     CodigoRuta=r.CodigoRuta,
                     CodigoPedido = r.CodigoPedido,
                     Direccion = c.Direccion,
+                    FechaCreacion=r.FechaCreacion,
                     Orden = r.Orden
                 }
             ).ToListAsync();

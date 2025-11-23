@@ -14,7 +14,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoCliente = dto.CodigoCliente,
                 
                 CodigoPedido= dto.CodigoPedido,
-                
+                FechaCreacion = dto.FechaCreacion,
                 Orden=dto.Orden,
             };
         }
