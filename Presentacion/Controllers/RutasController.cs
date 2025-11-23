@@ -79,9 +79,9 @@ namespace Ventas.Presentacion.Controllers
         // POST: api/Rutas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> PostRuta(string codigoRuta, string codigoCliente, string codigoEmpleado, string orden, string dia)
+        public async Task<IActionResult> PostRuta(string codigoRuta, string codigoCliente, string codigoEmpleado,string codigoPedido, string orden, string dia)
         {
-            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, CodigoEmpleado=codigoEmpleado, Orden=orden, Dia=dia};
+            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, CodigoEmpleado=codigoEmpleado, CodigoPedido=codigoPedido, Orden=orden, Dia=dia};
             Ruta Ruta = rutaDTO.toRuta();
             await context.AgregarRuta(Ruta);
 

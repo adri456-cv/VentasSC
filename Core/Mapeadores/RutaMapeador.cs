@@ -13,6 +13,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoRuta = dto.CodigoRuta,
                 CodigoCliente = dto.CodigoCliente,
                 CodigoEmpleado = dto.CodigoEmpleado,
+                CodigoPedido= dto.CodigoPedido,
                 Dia=dto.Dia,
                 Orden=dto.Orden,
             };
@@ -24,6 +25,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoRuta = ruta.CodigoRuta,
                 CodigoCliente = ruta.CodigoCliente,
                 CodigoEmpleado = ruta.CodigoEmpleado,
+                CodigoPedido=ruta.CodigoPedido,
                 Dia = ruta.Dia,
                 Orden = ruta.Orden,
                 FechaCreacion = DateOnly.FromDateTime(DateTime.UtcNow), // Usar UTC para consistencia
