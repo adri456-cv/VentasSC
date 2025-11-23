@@ -44,7 +44,8 @@ namespace Ventas.Infraestructura.Repositorio
                     on r.CodigoPedido equals p.Codigo
                 join c in _context.Cliente
                     on p.CodigoCliente equals c.Codigo
-                where p.CodigoCliente == r.CodigoCliente   
+                where p.CodigoCliente == r.CodigoCliente
+                orderby Convert.ToInt32(r.Orden)   
                 select new ListaRutaDTO
                 {
                     Dia = r.Dia,
@@ -56,6 +57,7 @@ namespace Ventas.Infraestructura.Repositorio
 
             return lista;
         }
+
 
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)
         {
