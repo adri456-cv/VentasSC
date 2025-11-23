@@ -11,7 +11,6 @@ namespace Ventas.Core.Mapeadores
                 Codigo = pedido.Codigo,
                 CodigoCliente = pedido.CodigoCliente,
                 CodigoEmpleado = pedido.CodigoEmpleado,
-                CodigoSucursal = pedido.CodigoSucursal,
                 FechaPedido = pedido.FechaPedido,
                 
             };
@@ -23,7 +22,6 @@ namespace Ventas.Core.Mapeadores
                 Codigo = dto.Codigo,
                 CodigoCliente = dto.CodigoCliente,
                 CodigoEmpleado = dto.CodigoEmpleado,
-                CodigoSucursal= dto.CodigoSucursal,
                 FechaPedido = dto.FechaPedido,
                 EstadoPedido = "En Proceso"
 

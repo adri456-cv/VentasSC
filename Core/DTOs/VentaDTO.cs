@@ -2,7 +2,7 @@
 {
     public class VentaDTO
     {
-        //no da el get{codigo}, el eliminar y el actualizar estado 
+        //no da el get{codigo}, el eliminar 
         public string CodigoPedido { get; set; }
         public string CodigoCliente { get; set; }
         public string CodigoSucursal { get; set; }

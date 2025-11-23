@@ -60,9 +60,7 @@ namespace Ventas.Migrations
                     Codigo = table.Column<string>(type: "text", nullable: false),
                     CodigoCliente = table.Column<string>(type: "text", nullable: false),
                     CodigoEmpleado = table.Column<string>(type: "text", nullable: false),
-                    CodigoSucursal = table.Column<string>(type: "text", nullable: false),
                     FechaPedido = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    MontoTotalPedido = table.Column<double>(type: "double precision", nullable: false),
                     EstadoPedido = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -78,8 +76,8 @@ namespace Ventas.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CodigoRuta = table.Column<string>(type: "text", nullable: false),
                     CodigoCliente = table.Column<string>(type: "text", nullable: false),
-                    CodigoEmpleado = table.Column<string>(type: "text", nullable: false),
-                    Dia = table.Column<string>(type: "text", nullable: false),
+                    CodigoPedido = table.Column<string>(type: "text", nullable: false),
+                    FechaCreacion = table.Column<DateOnly>(type: "date", nullable: false),
                     Orden = table.Column<string>(type: "text", nullable: false),
                     Estado = table.Column<string>(type: "text", nullable: false)
                 },

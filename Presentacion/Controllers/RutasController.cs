@@ -67,7 +67,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpPut("{codigo}")]
         public async Task<IActionResult> PutRuta(string codigo, string codigoRuta, string codigoCliente, string codigoEmpleado, string orden, string dia)
         {
-            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, CodigoEmpleado=codigoEmpleado, Dia=dia, Orden=orden};
+            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, Orden=orden};
             RutaDTO rutActualizado = await context.ActualizarRuta(codigo,rutaDTO);
             if (rutActualizado == null)
             {
@@ -81,7 +81,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpPost]
         public async Task<IActionResult> PostRuta(string codigoRuta, string codigoCliente, string codigoEmpleado,string codigoPedido, string orden, string dia)
         {
-            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, CodigoEmpleado=codigoEmpleado, CodigoPedido=codigoPedido, Orden=orden, Dia=dia};
+            RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, CodigoPedido=codigoPedido, Orden=orden};
             Ruta Ruta = rutaDTO.toRuta();
             await context.AgregarRuta(Ruta);
 

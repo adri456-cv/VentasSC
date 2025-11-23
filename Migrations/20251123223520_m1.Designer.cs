@@ -12,7 +12,7 @@ using Ventas.Infraestructura.Data;
 namespace Ventas.Migrations
 {
     [DbContext(typeof(VentasContext))]
-    [Migration("20251121000216_m1")]
+    [Migration("20251123223520_m1")]
     partial class m1
     {
         /// <inheritdoc />
@@ -127,19 +127,12 @@ namespace Ventas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CodigoSucursal")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("EstadoPedido")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("FechaPedido")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("MontoTotalPedido")
-                        .HasColumnType("double precision");
 
                     b.HasKey("IdPedido");
 
@@ -158,7 +151,7 @@ namespace Ventas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CodigoEmpleado")
+                    b.Property<string>("CodigoPedido")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -166,13 +159,12 @@ namespace Ventas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Dia")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateOnly>("FechaCreacion")
+                        .HasColumnType("date");
 
                     b.Property<string>("Orden")
                         .IsRequired()

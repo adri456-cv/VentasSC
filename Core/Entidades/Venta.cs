@@ -12,7 +12,7 @@ namespace Ventas.Core.Entidades
         public string CodigoVenta { get; set; }
         public DateTime FechaEmision { get; set; } = DateTime.UtcNow;
         public double MontoTotal { get; set; }
-        public string EstadoVenta { get; set; } = "Registrada";//registrada o anulada
+        public string EstadoVenta { get; set; } = "registrada";//registrada o anulada
 
     }
 }

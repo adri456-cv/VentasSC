@@ -124,10 +124,6 @@ namespace Ventas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CodigoSucursal")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("EstadoPedido")
                         .IsRequired()
                         .HasColumnType("text");
@@ -152,19 +148,11 @@ namespace Ventas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CodigoEmpleado")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("CodigoPedido")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CodigoRuta")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Dia")
                         .IsRequired()
                         .HasColumnType("text");
 

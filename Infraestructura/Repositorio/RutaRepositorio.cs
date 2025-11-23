@@ -57,7 +57,7 @@ namespace Ventas.Infraestructura.Repositorio
 
                 select new ListaRutaDTO
                 {
-                    Dia = r.Dia,
+                    CodigoRuta=r.CodigoRuta,
                     CodigoPedido = r.CodigoPedido,
                     Direccion = c.Direccion,
                     Orden = r.Orden
@@ -86,8 +86,7 @@ namespace Ventas.Infraestructura.Repositorio
             }
             ruta.CodigoRuta = rutaDto.CodigoRuta;
             ruta.CodigoCliente = rutaDto.CodigoCliente;
-            ruta.CodigoEmpleado = rutaDto.CodigoEmpleado;
-            ruta.Dia= rutaDto.Dia;
+            
             ruta.Orden = rutaDto.Orden;
             
             _context.Ruta.Update(ruta);

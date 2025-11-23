@@ -12,6 +12,6 @@ namespace Ventas.Core.Entidades
         public int Cantidad { get; set; }
         public double PrecioUnitarioVenta { get; set; }
         public double SubTotal { get; set; }
-        public string Estado { get; set; } = "Activo";
+        public string Estado { get; set; } = "activo";//Cancelado
     }
 }

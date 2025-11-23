@@ -13,7 +13,7 @@ namespace Ventas.Core.Entidades
         public string Contacto { get; set; }
         public string Direccion { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
-        public string Estado { get; set; } = "Alta";//alta o baja
+        public string Estado { get; set; } = "alta";//alta o baja
 
     }
 }
