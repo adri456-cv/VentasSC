@@ -13,7 +13,7 @@ namespace Ventas.Infraestructura.Repositorio
         {
             this._context = context;
         }
-
+        //Nueva base
         public async Task<List<ClienteDTO>> GetListaCliente()
         {
             return await (from u in _context.Cliente
