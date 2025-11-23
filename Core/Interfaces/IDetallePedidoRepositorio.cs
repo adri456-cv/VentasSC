@@ -10,5 +10,6 @@ namespace Ventas.Core.Interfaces
         Task<DetallePedido> AgregarDetalle(DetallePedido nuevoDetalle);
         Task<DetallePedido> EliminarDetalle(string codigo);
         Task<ProductoCantidadDTO> ProductosTotales(string codigo);
+        Task<List<ProductoMenosVendidoDTO>> ProductoMenos();
     }
 }

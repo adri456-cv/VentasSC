@@ -53,6 +53,17 @@ namespace Ventas.Presentacion.Controllers
             return Ok(pedido);
         }
 
+        [HttpGet("MostrarDetalle")]
+        public async Task<IActionResult> GetMostrarDetalle(string codigo)
+        {
+            List<PedidoDetalleDTO> detallePedidos = await context.GetPedidosConDetalles(codigo);
+            if (detallePedidos == null)
+            {
+                return NotFound();
+            }
+            return Ok(detallePedidos);
+        }
+
         // 4. PUT: api/Pedidos/5
         // Permite actualizar el estado de un pedido existente.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

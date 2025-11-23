@@ -85,5 +85,20 @@ namespace Ventas.Infraestructura.Repositorio
             return resultado;
 
         }
+        public async Task<List<ProductoMenosVendidoDTO>> ProductoMenos()
+        {
+            var lista = await _context.DetallePedido
+            .Where(d => d.Estado == "Activo")  
+            .GroupBy(d => d.CodigoProducto)    
+            .Select(g => new ProductoMenosVendidoDTO
+            {
+                CodigoProducto = g.Key,
+                CantidadVendida = g.Sum(x => x.Cantidad) 
+            })
+            .OrderBy(x => x.CantidadVendida) 
+            .ToListAsync();
+
+                return lista;
+        }
     }
 }

@@ -66,6 +66,17 @@ namespace Ventas.Presentacion.Controllers
             return Ok(productoCantidad);
         }
 
+        [HttpGet("ProductosMenosVendidos")]
+        public async Task<IActionResult> GetProductosMenosVendidos()
+        {
+            var productosMenosVendidos = await context.ProductoMenos();
+            if (productosMenosVendidos == null)
+            {
+                return NotFound();
+            }
+            return Ok(productosMenosVendidos);
+        }
+
         // PUT: api/DetallePedidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{codigo}")]

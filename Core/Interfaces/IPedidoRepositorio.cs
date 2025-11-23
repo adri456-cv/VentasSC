@@ -9,6 +9,7 @@ namespace Ventas.Core.Interfaces
         Task<Pedido> ActualizarEstado(string codigo, string estadoNuevo);
         Task<Pedido> AgregarPedido(Pedido nuevoPedido);
         Task<Pedido> EliminarPedido(string codigo);
-        
+        Task<List<PedidoDetalleDTO>> GetPedidosConDetalles(string codigoP);
+
     }
 }

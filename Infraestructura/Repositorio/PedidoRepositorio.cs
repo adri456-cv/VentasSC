@@ -70,6 +70,24 @@ namespace Ventas.Infraestructura.Repositorio
             }
 
         }
-        
+        public async Task<List<PedidoDetalleDTO>> GetPedidosConDetalles(string codigoP)
+        {
+            var detalles = await (
+                from d in _context.DetallePedido
+                where d.CodigoPedido == codigoP
+                      && d.Estado == "Activo" 
+                select new PedidoDetalleDTO
+                {
+                    CodigoProducto = d.CodigoProducto,
+                    Cantidad = d.Cantidad,
+                    PrecioUnitarioVenta = d.PrecioUnitarioVenta
+                }
+            ).ToListAsync();
+
+            return detalles;
+        }
+
+
+
     }
 }
