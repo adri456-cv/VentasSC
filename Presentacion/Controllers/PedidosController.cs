@@ -23,7 +23,16 @@ namespace Ventas.Presentacion.Controllers
         {
             this.context = context;
         }
-
+        [HttpGet("ListaDePedidos")]
+        public async Task<IActionResult> GetListaPedido()
+        {
+            List<PedidoDTO> pedido = await context.GetPedidosTodos();
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+            return Ok(pedido);
+        }
         // 2. GET: api/Pedidos
         //Permite visualizar todos los pedidos registrados en el sistema.
         [HttpGet("ListarPedidosEntregados")]
@@ -60,7 +69,7 @@ namespace Ventas.Presentacion.Controllers
 
         // 3. GET: api/Pedidos/5
         //Permite obtener los atributos de un pedido específico utilizando su codigo.
-        [HttpGet("Tarea3ObtenerPedido{codigo}")]
+        [HttpGet("ObtenerPedido{codigo}")]
         public async Task<IActionResult> GetPedido(string codigo)
         {
             PedidoDTO pedido = await context.GetPedido(codigo);
@@ -73,8 +82,8 @@ namespace Ventas.Presentacion.Controllers
             return Ok(pedido);
         }
 
-        [HttpGet("MostrarDetalle")]
-        public async Task<IActionResult> GetMostrarDetalle(string codigo)
+        [HttpGet("MostrarDetalle/{codigo}")]
+        public async Task<IActionResult> GetMostrarDetalle([FromRoute]string codigo)
         {
             List<PedidoDetalleDTO> detallePedidos = await context.GetPedidosConDetalles(codigo);
             if (detallePedidos == null)
@@ -87,7 +96,7 @@ namespace Ventas.Presentacion.Controllers
         // 4. PUT: api/Pedidos/5
         // Permite actualizar el estado de un pedido existente.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Tarea3ActualizarEstado{codigo}")]
+        [HttpPut("Tarea3ActualizarEstado/{codigo}")]
         public async Task<IActionResult> PutPedido(string codigo, string estadoNuevo)
         {
             var pedidoActualizado = await context.ActualizarEstado(codigo, estadoNuevo);

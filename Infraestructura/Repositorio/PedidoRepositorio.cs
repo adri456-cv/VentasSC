@@ -13,7 +13,11 @@ namespace Ventas.Infraestructura.Repositorio
         {
             this._context = context;
         }
-
+        public async Task<List<PedidoDTO>> GetPedidosTodos()
+        {
+            return await (from u in _context.Pedido
+                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
+        }
         public async Task<List<PedidoDTO>> GetPedido()
         {
             return await (from u in _context.Pedido
