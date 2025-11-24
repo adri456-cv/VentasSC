@@ -89,7 +89,7 @@ namespace Ventas.Infraestructura.Repositorio
                 }
             ).ToListAsync();
 
-            return lista.Count == 0 ? null : lista;
+            return lista; 
         }
 
 

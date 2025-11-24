@@ -61,8 +61,8 @@ namespace Ventas.Presentacion.Controllers
             }
             return Ok(ruta);
         }
-        [HttpGet("PedidosPorRuta")]
-        public async Task<IActionResult> GetPedidos(string codigo)
+        [HttpGet("PedidosPorRuta/{codigo}")]
+        public async Task<IActionResult> GetPedidos([FromRoute]string codigo)
         {
             List<PedidoRutaDTO> ruta = await context.GetPedidos(codigo);
             if (ruta == null)
