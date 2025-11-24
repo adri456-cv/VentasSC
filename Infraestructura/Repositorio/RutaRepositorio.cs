@@ -82,15 +82,14 @@ namespace Ventas.Infraestructura.Repositorio
                     CodigoCliente = p.CodigoCliente,
                     EstadoPedido = p.EstadoPedido,
                     MontoTotal = _context.DetallePedido
-                        .Where(dp => dp.CodigoPedido == p.Codigo && dp.Estado == "Activo")
-                        .Select(dp => dp.Cantidad * dp.PrecioUnitarioVenta)
-                        .DefaultIfEmpty(0)
-                        .Sum()
+                        .Where(dp => dp.CodigoPedido == p.Codigo && dp.Estado.ToLower() == "activo")
+                        .Sum(dp => (double?)dp.Cantidad * dp.PrecioUnitarioVenta) ?? 0
                 }
             ).ToListAsync();
 
-            return lista; 
+            return lista;
         }
+
 
 
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)

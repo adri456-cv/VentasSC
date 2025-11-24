@@ -26,7 +26,7 @@ namespace Ventas.Presentacion.Controllers
         }
 
         // GET: api/Ventas
-        [HttpGet]
+        [HttpGet("Ventas")]
         public async Task<IActionResult> GetVenta()
         {
             List<VentaDTO> Registrada = await context.Getventas();
