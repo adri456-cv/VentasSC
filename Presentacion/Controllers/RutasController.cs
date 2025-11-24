@@ -61,6 +61,16 @@ namespace Ventas.Presentacion.Controllers
             }
             return Ok(ruta);
         }
+        [HttpGet("PedidosPorRuta")]
+        public async Task<IActionResult> GetPedidos(string codigo)
+        {
+            List<PedidoRutaDTO> ruta = await context.GetPedidos(codigo);
+            if (ruta == null)
+            {
+                return NotFound();
+            }
+            return Ok(ruta);
+        }
 
         // PUT: api/Rutas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

@@ -6,7 +6,6 @@
         public string CodigoCliente { get; set; }
         public string CodigoEmpleado { get; set; }
         //borrar
-        
         public DateTime FechaPedido { get; set; } = DateTime.UtcNow;
         
     }

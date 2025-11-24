@@ -4,6 +4,7 @@ using Ventas.Core.DTOs;
 using Ventas.Core.Mapeadores;
 using Microsoft.EntityFrameworkCore;
 using Ventas.Core.Entidades;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Ventas.Infraestructura.Repositorio
 {
@@ -68,7 +69,24 @@ namespace Ventas.Infraestructura.Repositorio
             return lista;
         }
 
-
+        public async Task<List<PedidoRutaDTO>> GetPedidos(string codigo)
+        {
+            List<PedidoRutaDTO> Lista = await (from u in _context.Ruta
+                                               join p in _context.Pedido
+                                               on u.CodigoPedido equals p.Codigo
+                                               where u.CodigoRuta == codigo
+                                               select new PedidoRutaDTO
+                                               {
+                                                   CodigoPedido = p.Codigo,
+                                                   CodigoCliente = p.CodigoCliente,
+                                                  
+                                               }).ToListAsync();
+            if (Lista.Count == 0)
+            {
+                return null;
+            }
+            return Lista;
+        }
 
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)
         {
