@@ -4,6 +4,8 @@
     {
         public string CodigoPedido { get; set; }
         public string CodigoCliente { get; set; }
-        //public int MontoTotal { get; set; }
+        public double MontoTotal { get; set; }
+
+        public string EstadoPedido { get; set; }
     }
 }

@@ -71,22 +71,27 @@ namespace Ventas.Infraestructura.Repositorio
 
         public async Task<List<PedidoRutaDTO>> GetPedidos(string codigo)
         {
-            List<PedidoRutaDTO> Lista = await (from u in _context.Ruta
-                                               join p in _context.Pedido
-                                               on u.CodigoPedido equals p.Codigo
-                                               where u.CodigoRuta == codigo
-                                               select new PedidoRutaDTO
-                                               {
-                                                   CodigoPedido = p.Codigo,
-                                                   CodigoCliente = p.CodigoCliente,
-                                                  
-                                               }).ToListAsync();
-            if (Lista.Count == 0)
-            {
-                return null;
-            }
-            return Lista;
+            var lista = await (
+                from u in _context.Ruta
+                join p in _context.Pedido
+                    on u.CodigoPedido equals p.Codigo
+                where u.CodigoRuta == codigo
+                select new PedidoRutaDTO
+                {
+                    CodigoPedido = p.Codigo,
+                    CodigoCliente = p.CodigoCliente,
+                    EstadoPedido = p.EstadoPedido,
+                    MontoTotal = _context.DetallePedido
+                        .Where(dp => dp.CodigoPedido == p.Codigo && dp.Estado == "Activo")
+                        .Select(dp => dp.Cantidad * dp.PrecioUnitarioVenta)
+                        .DefaultIfEmpty(0)
+                        .Sum()
+                }
+            ).ToListAsync();
+
+            return lista.Count == 0 ? null : lista;
         }
+
 
         public async Task<Ruta> AgregarRuta(Ruta nuevaRuta)
         {
