@@ -55,10 +55,10 @@ namespace Ventas.Presentacion.Controllers
             
         }
 
-        [HttpGet("ProductoCantidad/{codigo}")]
-        public async Task<IActionResult> GetProductoCantidad(string codigo)
+        [HttpGet("ProductoCantidad")]
+        public async Task<IActionResult> GetProductoCantidad()
         {
-            var productoCantidad = await context.ProductosTotales(codigo);
+            var productoCantidad = await context.ProductosTotales();
             if (productoCantidad == null)
             {
                 return NotFound();
