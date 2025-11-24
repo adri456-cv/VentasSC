@@ -29,7 +29,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoVenta = venta.CodigoVenta,
                 FechaEmision = venta.FechaEmision,
                 MontoTotal = venta.MontoTotal,
-                EstadoVenta = "Registrada"
+                EstadoVenta = "registrada"
 
             };
         }

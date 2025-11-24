@@ -23,7 +23,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoCliente = dto.CodigoCliente,
                 CodigoEmpleado = dto.CodigoEmpleado,
                 FechaPedido = dto.FechaPedido,
-                EstadoPedido = "En Proceso"
+                EstadoPedido = "en Proceso"
 
             };
         }

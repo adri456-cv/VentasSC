@@ -73,16 +73,23 @@ namespace Ventas.Infraestructura.Repositorio
                 return eliminado;
             }
         }
-        public async Task<ProductoCantidadDTO> ProductosTotales(string codigo)
+        public async Task<List<ProductoCantidadDTO>> ProductosTotales()
         {
-            var sumaProductos = await (from dp in _context.DetallePedido
-                                       where dp.CodigoProducto == codigo && dp.Estado == "Activo"
-                                       select dp.Cantidad).SumAsync();
-            var resultado = new ProductoCantidadDTO
+            var productosAgrupados = await _context.DetallePedido
+            .Where(dp => dp.Estado == "Activo") 
+            .GroupBy(dp => dp.CodigoProducto) 
+            .Select(g => new ProductoCantidadDTO 
             {
-                Cantidad = sumaProductos
-            };
-            return resultado;
+                
+                CodigoProducto = g.Key,
+
+                
+                Cantidad = g.Sum(dp => dp.Cantidad)
+            })
+            .OrderByDescending(dto => dto.Cantidad) 
+            .ToListAsync();
+
+            return productosAgrupados;
 
         }
         public async Task<List<ProductoMenosVendidoDTO>> ProductoMenos()

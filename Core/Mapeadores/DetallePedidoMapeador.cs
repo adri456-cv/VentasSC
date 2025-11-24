@@ -24,7 +24,7 @@ namespace Ventas.Core.Mapeadores
                 CodigoProducto = detalleDTO.CodigoProducto,
                 Cantidad = detalleDTO.Cantidad,
                 PrecioUnitarioVenta = detalleDTO.PrecioUnitarioVenta,
-                Estado = "Activo"
+                Estado = "activo"
             };
         }
     }

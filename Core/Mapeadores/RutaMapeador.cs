@@ -29,7 +29,7 @@ namespace Ventas.Core.Mapeadores
                 
                 Orden = ruta.Orden,
                 FechaCreacion = DateOnly.FromDateTime(DateTime.UtcNow), // Usar UTC para consistencia
-                Estado = "Activo"
+                Estado = "activo"
                 
             };
         }

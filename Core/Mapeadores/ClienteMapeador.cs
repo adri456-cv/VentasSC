@@ -27,7 +27,7 @@ namespace Ventas.Core.Mapeadores
                 Telefono = dto.Telefono,
                 Contacto = dto.Contacto,
                 Direccion = dto.Direccion,
-                Estado = "Alta" // Estado por defecto
+                Estado = "alta" // Estado por defecto
             };
         }
 
