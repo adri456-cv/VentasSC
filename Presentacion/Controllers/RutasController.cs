@@ -51,10 +51,10 @@ namespace Ventas.Presentacion.Controllers
 
             return Ok(ruta);
         }
-        [HttpGet("Rutas")]
+        [HttpGet("ListaRutas")]
         public async Task<IActionResult> GetRutas()
         {
-            List<ListaRutaDTO> ruta = await context.GetRutasPorDia();
+            List<ListaRutaDTO> ruta = await context.GetListaRutas();
             if (ruta == null)
             {
                 return NotFound();
@@ -64,7 +64,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpGet("PedidosPorRuta/{codigo}")]
         public async Task<IActionResult> GetPedidos([FromRoute]string codigo)
         {
-            List<PedidoRutaDTO> ruta = await context.GetPedidos(codigo);
+            List<PedidoDistribucionDTO> ruta = await context.GetPedidos(codigo);
             if (ruta == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace Ventas.Presentacion.Controllers
         // PUT: api/Rutas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{codigo}")]
-        public async Task<IActionResult> PutRuta(string codigo, string codigoRuta, string codigoCliente, string codigoEmpleado, string orden, string dia)
+        public async Task<IActionResult> PutRuta(string codigo, string codigoRuta, string codigoCliente, string orden)
         {
             RutaDTO rutaDTO = new RutaDTO() { CodigoRuta=codigoRuta, CodigoCliente=codigoCliente, Orden=orden};
             RutaDTO rutActualizado = await context.ActualizarRuta(codigo,rutaDTO);

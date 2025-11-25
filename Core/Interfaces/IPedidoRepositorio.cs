@@ -4,10 +4,10 @@ namespace Ventas.Core.Interfaces
 {
     public interface IPedidoRepositorio
     {
-        Task<List<PedidoDTO>> GetPedido();
-        Task<List<PedidoDTO>> GetEnProceso();
-        Task<List<PedidoDTO>> GetCancelados();
-        Task<List<PedidoDTO>> GetPedidosTodos();
+        Task<List<PedidoDistribucionDTO>> GetPedidoEntregado();
+        Task<List<PedidoDistribucionDTO>> GetEnProceso();
+        Task<List<PedidoDistribucionDTO>> GetCancelados();
+        Task<List<PedidoDistribucionDTO>> GetPedidosTodos();
         Task<PedidoDTO> GetPedido(string codigo);
         Task<Pedido> ActualizarEstado(string codigo, string estadoNuevo);
         Task<Pedido> AgregarPedido(Pedido nuevoPedido);

@@ -13,29 +13,80 @@ namespace Ventas.Infraestructura.Repositorio
         {
             this._context = context;
         }
-        public async Task<List<PedidoDTO>> GetPedidosTodos()
+        public async Task<List<PedidoDistribucionDTO>> GetPedidosTodos()
         {
-            return await (from u in _context.Pedido
-                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
-        }
-        public async Task<List<PedidoDTO>> GetPedido()
-        {
-            return await (from u in _context.Pedido
-                          where u.EstadoPedido=="Entregado"
-                          select u).Select(us=>us.toPedidoDTO()).ToListAsync();
+                var consulta = await (
+                    from pedido in _context.Pedido
+                    join cliente in _context.Cliente
+                        on pedido.CodigoCliente equals cliente.Codigo
+                    select new PedidoDistribucionDTO
+                    {
+                        CodigoPedido = pedido.Codigo,
+                        Direccion = cliente.Direccion,
+                        FechaPedido = pedido.FechaPedido,
+                        EstadoPedido = pedido.EstadoPedido
+                    }
+                    ).ToListAsync(); // O .ToList() si no usas async
 
+                return consulta;
         }
-        public async Task<List<PedidoDTO>> GetEnProceso()
+        public async Task<List<PedidoDistribucionDTO>> GetPedidoEntregado()
         {
-            return await (from u in _context.Pedido
-                          where u.EstadoPedido == "En Proceso"
-                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
+
+            var consulta = await (
+                    from pedido in _context.Pedido
+                    where pedido.EstadoPedido == "entregado"
+                    join cliente in _context.Cliente
+                        on pedido.CodigoCliente equals cliente.Codigo
+                        
+                    select new PedidoDistribucionDTO
+                    {
+                        CodigoPedido = pedido.Codigo,
+                        Direccion = cliente.Direccion,
+                        FechaPedido = pedido.FechaPedido,
+                        EstadoPedido = pedido.EstadoPedido
+                    }
+                    ).ToListAsync(); 
+
+            return consulta;
         }
-        public async Task<List<PedidoDTO>> GetCancelados()
+        public async Task<List<PedidoDistribucionDTO>> GetEnProceso()
         {
-            return await (from u in _context.Pedido
-                          where u.EstadoPedido == "Cancelado"
-                          select u).Select(us => us.toPedidoDTO()).ToListAsync();
+            var consulta = await (
+                    from pedido in _context.Pedido
+                    where pedido.EstadoPedido == "en proceso"
+                    join cliente in _context.Cliente
+                        on pedido.CodigoCliente equals cliente.Codigo
+
+                    select new PedidoDistribucionDTO
+                    {
+                        CodigoPedido = pedido.Codigo,
+                        Direccion = cliente.Direccion,
+                        FechaPedido = pedido.FechaPedido,
+                        EstadoPedido = pedido.EstadoPedido
+                    }
+                    ).ToListAsync();
+
+            return consulta;
+        }
+        public async Task<List<PedidoDistribucionDTO>> GetCancelados()
+        {
+            var consulta = await (
+                    from pedido in _context.Pedido
+                    where pedido.EstadoPedido == "cancelado"
+                    join cliente in _context.Cliente
+                        on pedido.CodigoCliente equals cliente.Codigo
+
+                    select new PedidoDistribucionDTO
+                    {
+                        CodigoPedido = pedido.Codigo,
+                        Direccion = cliente.Direccion,
+                        FechaPedido = pedido.FechaPedido,
+                        EstadoPedido = pedido.EstadoPedido
+                    }
+                    ).ToListAsync();
+
+            return consulta;
         }
         public async Task<PedidoDTO> GetPedido(string codigo)
         {
@@ -91,12 +142,13 @@ namespace Ventas.Infraestructura.Repositorio
             var detalles = await (
                 from d in _context.DetallePedido
                 where d.CodigoPedido == codigoP
-                      && d.Estado == "Activo" 
+                      && d.Estado == "activo" 
                 select new PedidoDetalleDTO
                 {
                     CodigoProducto = d.CodigoProducto,
                     Cantidad = d.Cantidad,
-                    PrecioUnitarioVenta = d.PrecioUnitarioVenta
+                    PrecioUnitarioVenta = d.PrecioUnitarioVenta,
+                    Subtotal = d.Cantidad * d.PrecioUnitarioVenta
                 }
             ).ToListAsync();
 

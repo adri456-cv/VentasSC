@@ -26,7 +26,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpGet("ListaDePedidos")]
         public async Task<IActionResult> GetListaPedido()
         {
-            List<PedidoDTO> pedido = await context.GetPedidosTodos();
+            List<PedidoDistribucionDTO> pedido = await context.GetPedidosTodos();
             if (pedido == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpGet("ListarPedidosEntregados")]
         public async Task<IActionResult> GetPedido()
         {
-            List<PedidoDTO> pedido = await context.GetPedido();
+            List<PedidoDistribucionDTO> pedido = await context.GetPedidoEntregado();
             if (pedido == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpGet("ListarPedidosEnProceso")]
         public async Task<IActionResult> GetPedidosEnProceso()
         {
-            List<PedidoDTO> pedido = await context.GetEnProceso();
+            List<PedidoDistribucionDTO> pedido = await context.GetEnProceso();
             if (pedido == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace Ventas.Presentacion.Controllers
         [HttpGet("ListarPedidosCancelados")]
         public async Task<IActionResult> GetPedidosCancelados()
         {
-            List<PedidoDTO> pedido = await context.GetCancelados();
+            List<PedidoDistribucionDTO> pedido = await context.GetCancelados();
             if (pedido == null)
             {
                 return NotFound();
@@ -96,7 +96,7 @@ namespace Ventas.Presentacion.Controllers
         // 4. PUT: api/Pedidos/5
         // Permite actualizar el estado de un pedido existente.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Tarea3ActualizarEstado/{codigo}")]
+        [HttpPut("ActualizarEstado/{codigo}")]
         public async Task<IActionResult> PutPedido(string codigo, string estadoNuevo)
         {
             var pedidoActualizado = await context.ActualizarEstado(codigo, estadoNuevo);

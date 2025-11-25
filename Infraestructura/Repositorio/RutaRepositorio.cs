@@ -37,53 +37,61 @@ namespace Ventas.Infraestructura.Repositorio
                 return encontrado.toRutaDTO();
             }
         }
-        public async Task<List<ListaRutaDTO>> GetRutasPorDia()
+        public async Task<List<ListaRutaDTO>> GetListaRutas()
         {
-            var lista = await (
-                from r in _context.Ruta
-
-                join p in _context.Pedido
-                    on r.CodigoPedido equals p.Codigo into pedidos
-                from p in pedidos.DefaultIfEmpty()   // <-- mantiene rutas aunque no haya pedido
-
-                join c in _context.Cliente
-                    on p.CodigoCliente equals c.Codigo into clientes
-                from c in clientes.DefaultIfEmpty()  // <-- mantiene rutas aunque no haya cliente
-
-                where p != null
-                      && c != null
-                      && p.CodigoCliente == r.CodigoCliente    // tu validación
-
-                orderby Convert.ToInt32(r.Orden)
-
-                select new ListaRutaDTO
-                {
-                    CodigoRuta=r.CodigoRuta,
-                    CodigoPedido = r.CodigoPedido,
-                    Direccion = c.Direccion,
-                    FechaCreacion=r.FechaCreacion,
-                    Orden = r.Orden
-                }
+                var datosRuta = await (
+            from r in _context.Ruta
+                
+            join p in _context.Pedido
+                on r.CodigoPedido equals p.Codigo
+            
+            join c in _context.Cliente
+                on p.CodigoCliente equals c.Codigo
+            select new
+            {
+                r.CodigoRuta,
+                r.FechaCreacion,
+                r.CodigoPedido,
+                DireccionCliente = c.Direccion
+            }
             ).ToListAsync();
 
-            return lista;
+            if (!datosRuta.Any())
+            {
+                return new List<ListaRutaDTO>(); 
+            }
+
+            var listaDeRutas = datosRuta
+                .GroupBy(x => new { x.CodigoRuta, x.FechaCreacion })
+                .Select(g => new ListaRutaDTO
+                {
+                    CodigoRuta = g.Key.CodigoRuta,
+                    FechaCreacion = g.Key.FechaCreacion, 
+                    Paradas = g.Select(p => new DireccionesDTO 
+                    {
+                        Direccion = p.DireccionCliente,
+                    })
+                    .ToList()
+                })
+                .ToList();
+            return listaDeRutas;
         }
 
-        public async Task<List<PedidoRutaDTO>> GetPedidos(string codigo)
+        public async Task<List<PedidoDistribucionDTO>> GetPedidos(string codigo)
         {
             var lista = await (
                 from u in _context.Ruta
                 join p in _context.Pedido
                     on u.CodigoPedido equals p.Codigo
+                join c in _context.Cliente 
+                on u.CodigoCliente equals c.Codigo
                 where u.CodigoRuta == codigo
-                select new PedidoRutaDTO
+                select new PedidoDistribucionDTO
                 {
                     CodigoPedido = p.Codigo,
-                    CodigoCliente = p.CodigoCliente,
-                    EstadoPedido = p.EstadoPedido,
-                    MontoTotal = _context.DetallePedido
-                        .Where(dp => dp.CodigoPedido == p.Codigo && dp.Estado.ToLower() == "activo")
-                        .Sum(dp => (double?)dp.Cantidad * dp.PrecioUnitarioVenta) ?? 0
+                    Direccion = c.Direccion,
+                    FechaPedido = p.FechaPedido,
+                    EstadoPedido = p.EstadoPedido
                 }
             ).ToListAsync();
 

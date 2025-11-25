@@ -9,7 +9,7 @@ namespace Ventas.Core.Interfaces
         Task<Ruta> AgregarRuta(Ruta nuevaRuta);
         Task<RutaDTO> ActualizarRuta(string codigo, RutaDTO rutaDto);
         Task<Ruta> EliminarRuta(string codigo);
-        Task<List<ListaRutaDTO>> GetRutasPorDia();
-        Task<List<PedidoRutaDTO>> GetPedidos(string codigo);
+        Task<List<ListaRutaDTO>> GetListaRutas();
+        Task<List<PedidoDistribucionDTO>> GetPedidos(string codigo);
     }
 }
