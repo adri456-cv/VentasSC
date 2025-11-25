@@ -20,7 +20,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<List<RutaDTO>> GetRutas()
         {
             return await (from u in _context.Ruta
-                          where u.Estado == "Activo"
+                          where u.Estado.ToLower() == "activo"
                           select u).Select(us => us.toRutaDTO()).ToListAsync();
         }
         public async Task<RutaDTO> GetRuta(string codigo)
@@ -133,7 +133,7 @@ namespace Ventas.Infraestructura.Repositorio
             {
                 return null;
             }
-            rut.Estado = "Cancelado";
+            rut.Estado = "cancelado";
             _context.Ruta.Update(rut);
             await _context.SaveChangesAsync();
             return rut;

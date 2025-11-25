@@ -17,7 +17,7 @@ namespace Ventas.Infraestructura.Repositorio
         {
             // 1. Ejecutar la consulta en la DB para obtener List<Venta>
             var ventas = await _context.Venta
-                .Where(u => u.EstadoVenta == "Registrada")
+                .Where(u => u.EstadoVenta.ToLower() == "registrada")
                 .ToListAsync(); // <-- Ejecuta la consulta aquí
 
             // 2. Mapear la lista de entidades a una lista de DTO en memoria
@@ -68,7 +68,7 @@ namespace Ventas.Infraestructura.Repositorio
             {
                 return null;
             }
-            rut.EstadoVenta = "Anulado";
+            rut.EstadoVenta = "anulado";
             _context.Venta.Update(rut);
             await _context.SaveChangesAsync();
             return rut;
