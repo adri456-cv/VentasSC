@@ -17,7 +17,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<List<ClienteDTO>> GetListaCliente()
         {
             return await (from u in _context.Cliente
-                              where u.Estado=="Alta"
+                              where u.Estado.ToLower()=="alta"
                               select u).Select(us=>us.toClienteDTO()).ToListAsync();
         }
         public async Task<ClienteDTO>GetCliente(string ci)
