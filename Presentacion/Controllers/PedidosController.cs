@@ -96,11 +96,21 @@ namespace Ventas.Presentacion.Controllers
         // 4. PUT: api/Pedidos/5
         // Permite actualizar el estado de un pedido existente.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("ActualizarEstado/{codigo}")]
-        public async Task<IActionResult> PutPedido(string codigo, string estadoNuevo)
+        [HttpPut("ActualizarEstadoEntregado/{codigo}")]
+        public async Task<IActionResult> PutPedidoEntregado(string codigo)
         {
-            var pedidoActualizado = await context.ActualizarEstado(codigo, estadoNuevo);
+            var pedidoActualizado = await context.ActualizarEstadoEntregado(codigo);
             if (pedidoActualizado== null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        [HttpPut("ActualizarEstadoCancelado/{codigo}")]
+        public async Task<IActionResult> PutPedidoCancelado(string codigo)
+        {
+            var pedidoActualizado = await context.ActualizarEstadoCancelado(codigo);
+            if (pedidoActualizado == null)
             {
                 return NotFound();
             }
@@ -111,7 +121,7 @@ namespace Ventas.Presentacion.Controllers
         // Permite crear un nuevo pedido para los clientes que
         // esten dados de alta en el sistema.
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("Tarea3AgregarPedido")]
+        [HttpPost("AgregarPedido")]
         public async Task<IActionResult> PostPedido(string codigo, string codigoCliente, string codigoEmpleado )
         {
             

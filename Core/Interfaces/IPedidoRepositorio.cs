@@ -9,7 +9,8 @@ namespace Ventas.Core.Interfaces
         Task<List<PedidoDistribucionDTO>> GetCancelados();
         Task<List<PedidoDistribucionDTO>> GetPedidosTodos();
         Task<PedidoDTO> GetPedido(string codigo);
-        Task<Pedido> ActualizarEstado(string codigo, string estadoNuevo);
+        Task<Pedido> ActualizarEstadoEntregado(string codigo);
+        Task<Pedido> ActualizarEstadoCancelado(string codigo);
         Task<Pedido> AgregarPedido(Pedido nuevoPedido);
         Task<Pedido> EliminarPedido(string codigo);
         Task<List<PedidoDetalleDTO>> GetPedidosConDetalles(string codigoP);

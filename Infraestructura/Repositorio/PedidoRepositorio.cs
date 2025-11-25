@@ -99,7 +99,7 @@ namespace Ventas.Infraestructura.Repositorio
             }
             return PedidoMapeador.toPedidoDTO(pedido);
         }
-        public async Task<Pedido> ActualizarEstado(string codigo, string estadoNuevo)
+        public async Task<Pedido> ActualizarEstadoEntregado(string codigo)
         {
             var estado = await (from u in _context.Pedido
                                 where u.Codigo == codigo
@@ -108,7 +108,21 @@ namespace Ventas.Infraestructura.Repositorio
             {
                 return null;
             }
-            estado.EstadoPedido = estadoNuevo;
+            estado.EstadoPedido = "entregado";
+            _context.Pedido.Update(estado);
+            await _context.SaveChangesAsync();
+            return estado;
+        }
+        public async Task<Pedido> ActualizarEstadoCancelado(string codigo)
+        {
+            var estado = await (from u in _context.Pedido
+                                where u.Codigo == codigo
+                                select u).FirstOrDefaultAsync();
+            if (estado == null)
+            {
+                return null;
+            }
+            estado.EstadoPedido = "cancelado";
             _context.Pedido.Update(estado);
             await _context.SaveChangesAsync();
             return estado;
