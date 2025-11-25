@@ -18,7 +18,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<List<DetallePedidoDTO>> GetListaDetalle()
         {
             return await (from u in _context.DetallePedido
-                          where u.Estado == "Activo"
+                          where u.Estado.ToLower() == "activo"
                           select u).Select(us=>us.toDetallePedidoDTO()).ToListAsync();
         }
 
@@ -68,7 +68,7 @@ namespace Ventas.Infraestructura.Repositorio
             }
             else
             {
-                eliminado.Estado = "Cancelado";
+                eliminado.Estado = "cancelado";
                 await _context.SaveChangesAsync();
                 return eliminado;
             }
@@ -76,7 +76,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<List<ProductoCantidadDTO>> ProductosTotales()
         {
             var productosAgrupados = await _context.DetallePedido
-            .Where(dp => dp.Estado == "Activo") 
+            .Where(dp => dp.Estado.ToLower() == "activo") 
             .GroupBy(dp => dp.CodigoProducto) 
             .Select(g => new ProductoCantidadDTO 
             {
@@ -95,7 +95,7 @@ namespace Ventas.Infraestructura.Repositorio
         public async Task<List<ProductoMenosVendidoDTO>> ProductoMenos()
         {
             var lista = await _context.DetallePedido
-            .Where(d => d.Estado == "Activo")  
+            .Where(d => d.Estado.ToLower() == "activo")  
             .GroupBy(d => d.CodigoProducto)    
             .Select(g => new ProductoMenosVendidoDTO
             {
